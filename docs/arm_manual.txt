@@ -1,0 +1,28 @@
+to manually operate the robotic arm using a controller, read the following instructions:
+
+  A. For motor-1 :
+      Click ` for forward motion
+      Click 1 for backward motion
+  
+  B. For motor-2 :
+      Click 2 for forward motion
+      Click 3 for backward motion
+
+  C. For motor-3 :
+      Click 4 for forward motion
+      Click 5 for backward motion
+
+  D. For motor-4 :
+      Click 6 for forward motion
+      Click 7 for backward motion
+
+  E. For motor-5 :
+      Click 8 for forward motion
+      Click 9 for backward motion
+
+  F. For motor-6 :
+      Click 0 for forward motion
+      Click - for backward motion
+
+  G. To stop the ongoing motion :
+      Click z 

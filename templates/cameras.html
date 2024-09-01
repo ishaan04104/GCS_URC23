@@ -1,0 +1,49 @@
+<!-- {% extends "layout.html" %}
+{% block content %}
+<link rel="stylesheet" href="/app/static/cam_css.css">
+<div class="camera-buttons">
+	<button id="cam0" onclick="tog0()">cam0</button>
+	<button id="cam1" onclick="tog1()">cam1</button>
+	<button id="cam2" onclick="tog2()">cam2</button>
+	<button id="cam3" onclick="tog3()">cam3</button>
+	<button id="cam4" onclick="tog4()">cam4</button>
+	<button id="cam5" onclick="tog5()">cam5</button>
+</div>
+
+<h3 class="mt-5">Live Streaming</h3>
+
+<div id="row1" class="camera-row" style="height:40%; width:100%"> 
+	<div id="cam0" onclick="stopCamera(0)" style="float:left; width:33%; background-color:blue;">
+		<img src="{{ url_for('video_feed0') }}" width="100%">
+	</div>
+	<div id="cam1" onclick="stopCamera(1)" style="float:left; width:33%; background-color:rgb(0, 247, 255);">
+		<img src="{{ url_for('video_feed1') }}" width="100%">
+	</div>
+	<div id="cam2" onclick="stopCamera(2)" style="float:left; width:33%; background-color:blue;">
+		<img src="{{ url_for('video_feed2') }}" width="100%">
+	</div>
+</div>
+
+<div id="row2" class="camera-row" style="height:40%; width:100%"> 
+	<div id="cam3" onclick="stopCamera(3)" style="float:left; width:33%; background-color:blue;">
+		<img src="{{ url_for('video_feed3') }}" width="100%">
+	</div>
+	<div id="cam4" onclick="stopCamera(4)" style="float:left; width:33%; background-color:rgb(0, 247, 255);">
+		<img src="{{ url_for('video_feed4') }}" width="100%">
+	</div>
+	<div id="cam5" onclick="stopCamera(5)" style="float:left; width:33%; background-color:blue;">
+		<img src="{{ url_for('video_feed5') }}" width="100%">
+	</div>
+</div>
+
+<script>
+	  function stopCamera(cameraNumber) {
+    // Get the camera feed element
+    var camera = document.getElementById("cam" + cameraNumber);
+
+    // Set the src attribute of the img element to a blank image
+    camera.src = " ";
+  }
+</script>
+
+{% endblock %} -->

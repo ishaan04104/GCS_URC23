@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="static/bootstrap-5.2.3-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="static/main.css">
+</head>
+
+<body>
+  <div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+    <a class="py-3" href="/"><i class="fa-solid fa-house-chimney"></i> Home</a>
+    <a class="py-3" href="/controls"><i class="fa-solid fa-gamepad"></i> Controls</a>
+    <a class="py-3" href="/science"><i class="fa-solid fa-flask"></i> Science</a>
+  </div>
+  <div class="conatiner">
+    <nav class="navbar navbar-expand-md navbar-dark px-3 bg-dark">
+      <div>
+        <button class="openbtn" id="openBtn" onclick="openNav()">☰</button>
+      </div>
+      <div class="top-bar bg-dark">
+        <h1>TEAM VYADH GCS</h1>
+        <img src="/static/SEDS.jpeg" class="seds mr-2" />
+        <img src="./static/vyadh_logo_GCS.png" class="rover mx-3" />
+      </div>
+    </nav>
+    {% block content %}{% endblock %}
+  </div>
+</body>
+<script src="static/bootstrap-5.2.3-dist/js/bootstrap.min.js"></script>
+<script>
+  function openNav() {
+    document.getElementById("mySidebar").style.width = "250px";
+    document.getElementById("container").style.marginLeft = "250px";
+    document.getElementById("openBtn").style.display = "none";
+  }
+
+  function closeNav() {
+    document.getElementById("mySidebar").style.width = "0";
+    document.getElementById("container").style.marginLeft = "0";
+    document.getElementById("openBtn").style.display = "block";
+  }
+</script>
+
+</html>

@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="static/bootstrap-5.2.3-dist/css/bootstrap.min.css">
+  <script src="https://kit.fontawesome.com/18edf4ceb4.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./static/main.css" />
+  <script src="https://kit.fontawesome.com/4cf71fd357.js" crossorigin="anonymous"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<title>Document</title>
+</head>
+
+<body>
+  <div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+    <a class="py-3" href="/"><i class="fa-solid fa-house-chimney"></i> Home</a>
+    <a class="py-3" href="/controls"><i class="fa-solid fa-gamepad"></i> Controls</a>
+    <a class="py-3" href="/science"><i class="fa-solid fa-flask"></i> Science</a>
+  </div>
+  <div id="main">
+    <nav class="navbar navbar-expand-md navbar-dark px-3 bg-dark">
+      <div>
+        <button class="openbtn" id="openBtn" onclick="openNav()">☰</button>
+      </div>
+      <div class="top-bar bg-dark">
+        <h1>TEAM VYADH GCS</h1>
+        <img src="/static/SEDS.jpeg" class="seds mr-2" />
+        <img src="./static/vyadh_logo_GCS.png" class="rover mx-3" />
+      </div>
+    </nav>
+
+    <!-- <div class="container text-center">
+  <div class="row">
+    <div class="col">
+      <h3>Micrscopic Images</h3>
+    </div>
+    <div class="col">
+      <h3>Webcam Images</h3>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="imgfeed">
+    <button class="button-70" data-data-class="feed1" >VIEW</button>
+    <button class="button-70" data-data-class="feed2">VIEW</button>
+  </div>
+</div>
+
+
+
+<div class="grid-container">
+  <div class="grid-cell">
+    <p class="feed1 hidden" >Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum illum illo non!</p>
+  </div>
+  <div class="grid-cell">
+    <p class="feed2 hidden">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error, dolore?</p>
+  </div>
+</div>
+<div>
+  <h1>
+    SPECTROMETRIC TRIAD
+  </h1>
+</div>
+<div class="container-fluid">
+  <div class="site_buttons">
+      <button  class="button_site" data-data-class="graph1">SITE 1</button>
+      <button  class="button_site" data-data-class="graph2">SITE 2</button>
+      <button  class="button_site" data-data-class="graph3">SITE 3</button>
+  </div>
+</div>
+<div class="box">
+  <div class="flex-container">
+      <div id="graph">
+          <p id="graph1" class="graph1 hidden"></p>
+      </div>
+      <div id="graph">
+          <p id="graph2" class="graph2 hidden">Lorem ipsum dolor sit.</p>
+      </div>
+      <div id="graph">
+          <p id="graph3" class="graph3 hidden">Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, quos.</p>
+      </div>
+  </div>
+  </div> -->
+
+<div class="container-fluid">
+      <div class="sensor">
+          <h1>SENSOR READINGS</h1>        
+      </div>
+  </div>
+  <div class="container-fluid">
+      <div class="site_buttons">
+          <button  class="button_site" data-data-class="data1" onclick="getDictionary1()">SITE 1</button>
+          <button  class="button_site" data-data-class="data2" onclick="getDictionary2()">SITE 2</button>
+          <button  class="button_site" data-data-class="data3" onclick="getDictionary3()">SITE 3</button>
+      </div>
+  </div>
+  <div class="box">
+  <div class="flex-container">
+      <div id="data">
+          <p id="data1" class="data1 hidden"></p>
+      </div>
+      <div id="data">
+          <p id="data2" class="data2 hidden">Lorem ipsum dolor sit.</p>
+      </div>
+      <div id="data">
+          <p id="data3" class="data3 hidden">Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, quos.</p>
+      </div>
+  </div>
+  </div>
+<script>
+
+const buttons = document.querySelectorAll('.button_site');
+
+for (let i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener('click', function(event) {
+      const dataClass = event.target.getAttribute('data-data-class');
+      const hiddenElement = document.querySelector(`.${dataClass}`);
+      hiddenElement.classList.remove('hidden');
+    });
+  }
+const button = document.querySelectorAll('.button-70');
+
+for (let i = 0; i < button.length; i++) {
+    button[i].addEventListener('click', function(event) {
+      const dataClass = event.target.getAttribute('data-data-class');
+      const hiddenElement = document.querySelector(`.${dataClass}`);
+      hiddenElement.classList.remove('hidden');
+    });
+  }
+
+  
+  function getDictionary1() {
+    fetch('/get-dictionary')
+      .then(response => response.json())
+      .then(dictionary => {
+        // Build a string representation of the dictionary
+        let dictionaryString = '';
+        for (let key in dictionary) {
+          dictionaryString += `${key}: ${dictionary[key]}<br>`;
+        }
+        // Display the dictionary string in a p element
+        document.getElementById('data1').innerHTML = dictionaryString;
+      });
+  }
+  function getDictionary2() {
+    fetch('/get-dictionary')
+      .then(response => response.json())
+      .then(dictionary => {
+        // Build a string representation of the dictionary
+        let dictionaryString = '';
+        for (let key in dictionary) {
+          dictionaryString += `${key}: ${dictionary[key]}<br>`;
+        }
+        // Display the dictionary string in a p element
+        document.getElementById('data2').innerHTML = dictionaryString;
+      });
+  }
+  function getDictionary3() {
+    fetch('/get-dictionary')
+      .then(response => response.json())
+      .then(dictionary => {
+        // Build a string representation of the dictionary
+        let dictionaryString = '';
+        for (let key in dictionary) {
+          dictionaryString += `${key}: ${dictionary[key]}<br>`;
+        }
+        // Display the dictionary string in a p element
+        document.getElementById('data3').innerHTML = dictionaryString;
+      });
+  }
+</script>
+
+    <!-- <div class="container-fluid py-4">
+      <div class="sensor py-2">
+        <h1>SENSOR READINGS</h1>
+      </div>
+      <div class="row ">
+        <div class="col-sm-4">
+          <button type="button" id="updateButton1" class="btn btn-primary px-4 site_btn" data-data-class="data1">Site
+            1</button>
+          <div class="div1 shadow-lg" id="data">
+            <table id="data1" class="table data1 hidden">
+
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Sensor</th>
+                  <th scope="col">Data</th>
+                </tr>
+              </thead>
+
+              <tbody id="myTableBody1">
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Soil Moisture</td>
+                  <td>3.2%</td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>Soil Temperature</td>
+                  <td>24° C</td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>Aerial Humidity</td>
+                  <td>23%</td>
+                </tr>
+                <tr>
+                  <th scope="row">4</th>
+                  <td>pH</td>
+                  <td>7.3</td>
+                </tr>
+                <tr>
+                  <th scope="row">5</th>
+                  <td>Light Intensity</td>
+                  <td>3.9</td>
+                </tr>
+                <tr>
+                  <th scope="row">6</th>
+                  <td>Passive Infrared(PIR)</td>
+                  <td>Detected</td>
+                </tr>
+                <tr>
+                  <th scope="row">7</th>
+                  <td>Glucometer</td>
+                  <td>1.5mg/ml</td>
+                </tr>
+                <tr>
+                  <th scope="row">8</th>
+                  <td>Metal Proximity</td>
+                  <td>Not detected</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <button type="button" id="updateButton2" class="btn btn-primary px-4 site_btn" data-data-class="data2">Site
+            2</button>
+          <div id="data">
+            <table id="data2" class="table data2 hidden">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Sensor</th>
+                  <th scope="col">Data</th>
+                </tr>
+              </thead>
+              <tbody id="myTableBody2">
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Soil Moisture</td>
+                  <td>3.5%</td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>Soil Temperature</td>
+                  <td>24° C</td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>Aerial Humidity</td>
+                  <td>23%</td>
+                </tr>
+                <tr>
+                  <th scope="row">4</th>
+                  <td>pH</td>
+                  <td>7.3</td>
+                </tr>
+                <tr>
+                  <th scope="row">5</th>
+                  <td>Light Intensity</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <th scope="row">6</th>
+                  <td>Passive Infrared(PIR)</td>
+                  <td>Detected</td>
+                </tr>
+                <tr>
+                  <th scope="row">7</th>
+                  <td>Glucometer</td>
+                  <td>1.7mg/ml</td>
+                </tr>
+                <tr>
+                  <th scope="row">8</th>
+                  <td>Metal Proximity</td>
+                  <td>Detected</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <button type="button" id="updateButton3" class="btn btn-primary px-4 site_btn" data-data-class="data3">Site
+            3</button>
+          <div id="data">
+            <table id="data3" class="table data3 hidden">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Sensor</th>
+                  <th scope="col">Data</th>
+                </tr>
+              </thead>
+              <tbody id="myTableBody3">
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Soil Moisture</td>
+                  <td>3.2%</td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>Soil Temperature</td>
+                  <td>24° C</td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>Aerial Humidity</td>
+                  <td>23%</td>
+                </tr>
+                <tr>
+                  <th scope="row">4</th>
+                  <td>pH</td>
+                  <td>7.3</td>
+                </tr>
+                <tr>
+                  <th scope="row">5</th>
+                  <td>Light Intensity</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <th scope="row">6</th>
+                  <td>Passive Infrared(PIR)</td>
+                  <td>Detected</td>
+                </tr>
+                <tr>
+                  <th scope="row">7</th>
+                  <td>Glucometer</td>
+                  <td>1.8mg/ml</td>
+                </tr>
+                <tr>
+                  <th scope="row">8</th>
+                  <td>Metal Proximity</td>
+                  <td>Not Detected</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div> -->
+        <div class="col-sm-4">
+          <button type="button" id="IR" class="btn btn-dark" onclick="hide()">Infrared</button>
+          <div class="my-2" id="Ir" style="display: none;">
+            <img class="IR-img py-2" src="/static/ir_img.jpg" alt="ir">
+
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <button type="button" id="IR" class="btn btn-dark">Infrared</button>
+          <div>
+
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <button type="button" id="IR" class="btn btn-dark">Infrared</button>
+          <div>
+            <img src="" alt="">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <button type="button" id="Gas" class="btn btn-dark" onclick="getgraph()">Gas Sensors</button>
+        </div>
+        <div class="col-sm-4">
+          <button type="button" id="Gas" class="btn btn-dark" onclick="getgraph()">Gas Sensors</button>
+        </div>
+        <div class="col-sm-4">
+          <button type="button" id="Gas" class="btn btn-dark" onclick="getgraph()">Gas Sensors</button>
+        </div>
+      </div>
+    </div>  
+
+    <hr style="border-width: 10px;">
+    
+    <div class="col feed_rocks mx-4">
+      <center>
+      <div class="center">
+        <button type="button" class="btn btn-danger mx-4 rock" onclick="myfunc()">Science Camera</button>
+      </div>
+      <div class="center p-2 my-2">
+        <button type="button" class="btn btn-primary" onclick="snap()">Snapshot</button>
+        <button type="button" class="btn btn-success" onclick="toggleDiv()">Dimensions and Classification</button>
+      </div>
+    </center>
+    </div>
+
+    <div class="info">
+      <div class="rfeed mx-4" style="display: none;">
+        <div id="cam0" class="py-2">
+          <img src="{{ url_for('video_feed0') }}" width="100%">
+        </div>
+      </div>
+      <div class="rsnap mx-4" style="display: none;">
+        <!-- <div id="cam0" class="py-2">
+          <img id="img1" src="/static/rock_image1.png" style="display: none;" width="100%">
+        </div> -->
+        <div id="cam0" class="py-2">
+          <img id="img2" src="/static/rock_image2.png" width="100%">
+        </div>
+      </div>
+      <div id="hiddenDiv" class="shadow-lg mx-2 rocks">
+        <div class="image-block">
+          <img class="rock1 mx-2 border border-dark" src="/static/rock_image1.png" alt="Image description">
+          <div class="description mx-2 p-2 my-4">
+            <h5>Granite</h5>
+            <p><i>Type -- </i>Igneous</p>
+            <p><i>Minerals present -- </i>Orthoclase,Quartz,Plagioclase,Amphibole,Muscovite,Biotite</p>
+            <p><i>Grain size -- </i>Coarse grained(>2mm)</p>
+            <p><i>Colors -- </i>White,Black,Pink,Yellow</p>
+            <p><i>Keywords -- </i>Phanerite,Intrusive,Felsic</p>
+          </div>
+        </div>
+      </div>
+    </div>
+      <hr style="border-width:10px ;">
+      
+      <!-- <div>
+        <button id="show-chart-btn">Show Chart</button>
+      </div>
+      <div id="chart-container" style="display:none; position: relative;width:80vw; left: 10vw; top:7vh">
+        <canvas id="myChart"></canvas>
+      </div> -->
+      <div>
+        <h2 style="text-align:center;">SPECTRAL SIGNATURE ANALYSIS</h2>
+      </div>
+      <center>
+        <div style="width: 70vw" class="p-2">
+          <canvas id="graph" ></canvas>
+      </div>
+      </center>
+      
+    <center>
+      <button onclick="fetchData()" class="btn btn-dark mt-2 mb-2">Take Reading</button>
+    </center>
+  
+    <!-- <script>
+
+      const buttons = document.querySelectorAll('.site_btn');
+
+      for (let i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener('click', function (event) {
+          const dataClass = event.target.getAttribute('data-data-class');
+          const hiddenElement = document.querySelector(`.${dataClass}`);
+          hiddenElement.classList.remove('hidden');
+        });
+      }
+
+      // Initialize a counter variable and an array of values
+      // Initialize a counter variable and an array of arrays
+      var clickCount = 0;
+      var allValues = [["3.2%", "3.4%", "4.1%", "4.3%"],
+      ["24° C", "23° C", "22° C", "25° C"],
+      ["23%", "25%", "20%", "22%"],
+      ["7.3", "7.0", "7.5", "7.2"],
+      ["3.9", "3.95", "4.2", "4.0"],
+      ["Detected", "Detected", "Not Detected", "Not Detected"],
+      ["1.5mg/ml", "1.2mg/ml", "1.4mg/ml", "1.7mg/ml"],
+      ["Not Detected", "Detected", "Detected", "Not Detected"]
+      ];
+
+      // Add an event listener to the button
+      document.getElementById("updateButton1").addEventListener("click", function () {
+        // Get the table element
+        var table = document.getElementById("myTableBody1");
+
+        // Check if the table and rows exist
+        if (table && table.rows) {
+          // Loop through each row in the table
+          for (var i = 0; i < table.rows.length; i++) {
+            // Get the data cell element to be updated
+            var dataCell = table.rows[i].cells[2];
+
+            // Check if the row and cell exist
+            if (dataCell) {
+              // Get the array of values for this row
+              if (i < allValues.length) {
+                var values = allValues[i];
+                var newValue = values[clickCount % values.length];
+                dataCell.innerHTML = newValue;
+              }
+            }
+          }
+
+          // Increment the click counter
+          clickCount++;
+        }
+      });
+
+      var clickCount = 0;
+      var allValues = [["4.5%", "3.7%", "4.1%", "4.0%"],
+      ["25° C", "22° C", "24° C", "23° C"],
+      ["21%", "25%", "20%", "24%"],
+      ["8.3", "8.0", "7.5", "7.7"],
+      ["4.9", "4.95", "4.2", "5.0"],
+      ["Not Detected", "Detected", "Detected", "Not Detected"],
+      ["1.7mg/ml", "1.9mg/ml", "1.5mg/ml", "1.7mg/ml"],
+      ["Detected", "Not Detected", "Detected", "Not Detected"]
+      ];
+
+      // Add an event listener to the button
+      document.getElementById("updateButton2").addEventListener("click", function () {
+        // Get the table element
+        var table = document.getElementById("myTableBody2");
+
+        // Check if the table and rows exist
+        if (table && table.rows) {
+          // Loop through each row in the table
+          for (var i = 0; i < table.rows.length; i++) {
+            // Get the data cell element to be updated
+            var dataCell = table.rows[i].cells[2];
+
+            // Check if the row and cell exist
+            if (dataCell) {
+              // Get the array of values for this row
+              if (i < allValues.length) {
+                var values = allValues[i];
+                var newValue = values[clickCount % values.length];
+                dataCell.innerHTML = newValue;
+              }
+            }
+          }
+
+          // Increment the click counter
+          clickCount++;
+        }
+      });
+
+      var clickCount = 0;
+      var allValues = [["4.8%", "3.9%", "4.3%", "4.1%"],
+      ["25° C", "22° C", "19° C", "21° C"],
+      ["24%", "21%", "20%", "24%"],
+      ["7.3", "7.9", "7.5", "7.8"],
+      ["3.9", "3.95", "4.2", "4.0"],
+      ["Detected", "Detected", "Not Detected", "Not Detected"],
+      ["1.8mg/ml", "1.6mg/ml", "1.8mg/ml", "1.5mg/ml"],
+      ["Not Detected", "Detected", "Detected", "Not Detected"]
+      ];
+
+      // Add an event listener to the button
+      document.getElementById("updateButton3").addEventListener("click", function () {
+        // Get the table element
+        var table = document.getElementById("myTableBody3");
+
+        // Check if the table and rows exist
+        if (table && table.rows) {
+          // Loop through each row in the table
+          for (var i = 0; i < table.rows.length; i++) {
+            // Get the data cell element to be updated
+            var dataCell = table.rows[i].cells[2];
+
+            // Check if the row and cell exist
+            if (dataCell) {
+              // Get the array of values for this row
+              if (i < allValues.length) {
+                var values = allValues[i];
+                var newValue = values[clickCount % values.length];
+                dataCell.innerHTML = newValue;
+              }
+            }
+          }
+
+          // Increment the click counter
+          clickCount++;
+        }
+      });
+      function getgraph() {
+        fetch('/get-graph')
+      } -->
+
+
+
+     <!-- const button = document.querySelectorAll('.button-70');
+
+      // for (let i = 0; i < button.length; i++) {
+      //     button[i].addEventListener('click', function(event) {
+      //       const dataClass = event.target.getAttribute('data-data-class');
+      //       const hiddenElement = document.querySelector(`.${dataClass}`);
+      //       hiddenElement.classList.remove('hidden');
+      //     });
+      //   }
+      function myfunc() {
+        var rfeedElements = document.getElementsByClassName('rfeed');
+        if (rfeedElements.length > 0) {
+
+          if (rfeedElements[0].style.display == "none") {
+            rfeedElements[0].style.display = "block";
+          }
+          else {
+            rfeedElements[0].style.display = "none"
+          }
+        }
+      }
+
+      function hide() {
+        var img = document.getElementById('Ir');
+        if (img.style.display == "none") {
+          img.style.display = "block";
+        } else {
+          img.style.display = "none";
+        }
+      }
+      function snap() {
+        var snap = document.getElementsByClassName('rsnap');
+        if (snap.length > 0) {
+
+          if (snap[0].style.display == "none") {
+            snap[0].style.display = "block";
+          }
+          else {
+            snap[0].style.display = "none"
+          }
+        }
+      }
+
+      function toggleDiv() {
+        var div = document.getElementById("hiddenDiv");
+        if (div.style.display === "none") {
+          div.style.display = "block";
+        } else {
+          div.style.display = "none";
+        }
+      }
+
+
+      // function getDictionary1() {
+      //   fetch('/get-dictionary')
+      //     .then(response => response.json())
+      //     .then(dictionary => {
+      //       // Build a string representation of the dictionary
+      //       var tableBody = document.getElementById("myTableBody1");
+      //       tableBody.innerHTML = '';
+      //       for (let key in dictionary) {
+      //         var row = tableBody.insertRow();
+      //         var keyCell = row.insertCell(0);
+      //         var valueCell = row.insertCell(1);
+      //         keyCell.innerHTML = key;
+      //         valueCell.innerHTML = dictionary[key];
+      //       }
+      //     });
+      // }
+      // function getDictionary2() {
+      //   fetch('/get-dictionary')
+      //     .then(response => response.json())
+      //     .then(dictionary => {
+      //       // Build a string representation of the dictionary
+      //       var tableBody = document.getElementById("myTableBody2");
+      //       tableBody.innerHTML = '';
+      //       for (let key in dictionary) {
+      //         var row = tableBody.insertRow();
+      //         var keyCell = row.insertCell(0);
+      //         var valueCell = row.insertCell(1);
+      //         keyCell.innerHTML = key;
+      //         valueCell.innerHTML = dictionary[key];
+      //       }
+      //     });
+      // }
+      // function getDictionary3() {
+      //   fetch('/get-dictionary')
+      //     .then(response => response.json())
+      //     .then(dictionary => {
+      //       // Build a string representation of the dictionary
+      //       var tableBody = document.getElementById("myTableBody3");
+      //       tableBody.innerHTML = '';
+      //       for (let key in dictionary) {
+      //         var row = tableBody.insertRow();
+      //         var keyCell = row.insertCell(0);
+      //         var valueCell = row.insertCell(1);
+      //         keyCell.innerHTML = key;
+      //         valueCell.innerHTML = dictionary[key];
+      //       }
+      //     });
+      // }
+
+      function openNav() {
+        document.getElementById("mySidebar").style.width = "250px";
+        document.getElementById("main").style.marginLeft = "250px";
+        document.getElementById("openBtn").style.display = "none";
+      }
+
+      function closeNav() {
+        document.getElementById("mySidebar").style.width = "0";
+        document.getElementById("main").style.marginLeft = "0";
+        document.getElementById("openBtn").style.display = "block";
+      }
+
+
+      var ctx = document.getElementById('myChart').getContext('2d');
+        var data = {
+            labels: [400,450,500,550,600,650],
+            datasets: []
+        };
+        var options = {
+    responsive: true,
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: 'Wavelength(nm)'
+        },
+        grid: {
+          color: "rgba(255,255,255,0.2)"
+        },
+        min:400,
+        max: 650
+      },
+      y: {
+        title: {
+          display: true,
+          text: 'Absorptance(%)'
+        },
+        grid: {
+          color: "rgba(255,255,255,0.2)"
+        },
+        min:0,
+        max: 7
+      }
+    }
+  };
+
+  var chart = new Chart(ctx, {
+  type: 'line',
+  data: data,
+  options: options
+});
+
+
+        function addData() {
+    var newData;
+    var tension = 0;
+    if (data.datasets.length === 0) {
+        newData = [1.2,0.8,0.3,1.6,0.6,1.8];
+        tension = 0.4;
+    } else if (data.datasets.length === 1) {
+        newData = [1.2,0.3,0.2,1.6,0.6,1.8];
+        tension = 0.4;
+    } else if (data.datasets.length === 2) {
+        newData = [2.4,1.8,1.2,0.8,0.6,0.4];
+        tension = 0.4;
+    } else if (data.datasets.length === 3) {
+        newData = [6,5,3,4.3,5,3.6,4.8,1.2,0.6];
+        tension = 0.4;
+    }
+    else if (data.datasets.length === 4) {
+        newData = [0.8,.75,0.6,0.56,0.5,0.42,,0.2];
+        tension = 0.4;
+    }
+    var customLegendNames = ['Sulphates', 'Chlorides', 'Phyllosulphates','Carbonates','Peroxides'];
+    data.datasets.push({
+        label: customLegendNames[data.datasets.length], 
+        data: newData,
+        borderColor: getRandomColor(),
+        fill: true,
+        tension:tension
+    });
+    chart.update();
+  }
+
+        function getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        } -->
+<script>
+var chart;
+
+function fetchData() {
+    $.get('/get_data', function(response) {
+        console.log('Received response:', response);
+        var data;
+        try {
+            data = JSON.parse(response);
+        } catch (error) {
+            console.error('Error parsing JSON response:', error);
+            return;
+        }
+        var yValues = data.y;
+        var xValues = data.x;
+        var dataDisplay = document.getElementById('dataDisplay');
+        dataDisplay.innerHTML = '<p>'+'Y: ' + yValues.join(', ') + '</p>';
+
+        if (chart) {
+            // If chart already exists, add a new dataset
+            chart.data.datasets.push({
+                label: 'Reading ' + (chart.data.datasets.length + 1),
+                data: yValues,
+                borderColor: getRandomColor(),
+                tension: 0.4, // Increase the tension on the lines
+                fill: true
+            });
+            chart.update();
+        } else {
+            // Create a new chart if it doesn't exist
+            const canvas = document.getElementById('graph');
+            const ctx = canvas.getContext('2d');
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        label: 'Reading 1',
+                        data: yValues,
+                        borderColor: getRandomColor(),
+                        tension: 0.4, // Increase the tension on the lines
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            display: true
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                display: true,
+                                color: 'rgba(255, 255, 255, 0.2)' // Customize the grid color
+                            }
+                        },
+                        y: {
+                            grid: {
+                                display: true,
+                                color: 'rgba(255, 255, 255, 0.2)' // Customize the grid color
+                            }
+                        }
+                    },
+                    elements: {
+                        line: {
+                            borderWidth: 2 // Increase the line width
+                        }
+                    },
+                    layout: {
+                        padding: 10 // Add padding to the chart area
+                    }
+                }
+            });
+        }
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+        console.error('Request failed:', textStatus, errorThrown);
+    });
+}
+
+function getRandomColor() {
+const brightness = 70; // Adjust the brightness value to control the brightness of the colors
+
+const randomColor = () => Math.floor(Math.random() * 256);
+const isBrightColor = (r, g, b) => (r + g + b) / 3 > brightness;
+
+let r, g, b;
+do {
+r = randomColor();
+g = randomColor();
+b = randomColor();
+} while (!isBrightColor(r, g, b));
+
+return `rgb(${r}, ${g}, ${b})`;
+}
+
+
+</script>
+    
+</body>
+
+
+</html>
